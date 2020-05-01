@@ -24,7 +24,7 @@ namespace ComicBookAPI.Controllers
         public String GetAll()
         {
             new DB("MyDatabase", "localhost", 27017);
-            var result = DB.Find<Character>().Many(p => p.Name.Contains("Spi"));
+            var result = DB.Find<Character>().Many(p => p.Name.Contains(""));
             return result.ToJson() ; 
         }
         /******GET BY NAME******/
