@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\choco\\Desktop\\ComicBookAPI\\ComicBookAPI.csproj": {}
+    "C:\\Users\\choco\\source\\repos\\WebApplication3\\ComicBookAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\choco\\Desktop\\ComicBookAPI\\ComicBookAPI.csproj": {
+    "C:\\Users\\choco\\source\\repos\\WebApplication3\\ComicBookAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\choco\\Desktop\\ComicBookAPI\\ComicBookAPI.csproj",
+        "projectUniqueName": "C:\\Users\\choco\\source\\repos\\WebApplication3\\ComicBookAPI.csproj",
         "projectName": "ComicBookAPI",
-        "projectPath": "C:\\Users\\choco\\Desktop\\ComicBookAPI\\ComicBookAPI.csproj",
+        "projectPath": "C:\\Users\\choco\\source\\repos\\WebApplication3\\ComicBookAPI.csproj",
         "packagesPath": "C:\\Users\\choco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\choco\\Desktop\\ComicBookAPI\\obj\\",
+        "outputPath": "C:\\Users\\choco\\source\\repos\\WebApplication3\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\choco\\AppData\\Roaming\\NuGet\\NuGet.Config",

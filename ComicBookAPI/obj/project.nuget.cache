@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ny0zqxyzO6y2Xisti6TpfGCfEjmBymRat7NXXfNkYuCswERvltZk0WFlhVJajztJGIGYscjutpAzJ/6WvKrlFA==",
+  "dgSpecHash": "1f39SILsBKQ74EnCDwt2qgt3bKLCg+jA9SZq+ntyNDHTymlXYHASYp03METX+6XQvLA04TwhsgmqFEHm2qG6Fw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\choco\\Desktop\\ComicBookAPI\\ComicBookAPI.csproj",
+  "projectFilePath": "C:\\Users\\choco\\source\\repos\\WebApplication3\\ComicBookAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\choco\\.nuget\\packages\\dnsclient\\1.3.1\\dnsclient.1.3.1.nupkg.sha512",
     "C:\\Users\\choco\\.nuget\\packages\\microsoft.aspnet.mvc\\5.2.7\\microsoft.aspnet.mvc.5.2.7.nupkg.sha512",
