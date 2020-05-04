@@ -9,6 +9,7 @@ using MongoDB.Driver;
 using MongoDB.Entities;
 using Newtonsoft.Json.Linq;
 using MongoDB.Bson;
+using System.Xml.Schema;
 //using System.Web.Mvc;
 
 namespace ComicBookAPI.Controllers
@@ -24,18 +25,18 @@ namespace ComicBookAPI.Controllers
         public String GetAll()
         {
             //new DB("MyDatabase", "localhost", 27017);          
-            var result = DB.Find<Character>().Many(p => p.Name.Contains(""));
+            var result = DB.Find<Character>().Many(p => true);
             String count = result.Count().ToString();
             Console.WriteLine("SI");
-            return result[0].ToJson().Replace("ObjectId(", "").Replace("ISODate(", "").Replace(")",""); 
+            return result.ToJson().Replace("ObjectId(", "").Replace("ISODate(", "").Replace(")",""); 
         }
         /******GET BY NAME******/
         [HttpGet("{name}")]
         public String GetByName(String name)
         {
             //new DB("MyDatabase", "localhost", 27017);
-            var result = DB.Find<Character>().Many(p => p.Name.ToLower() == name.ToLower());
-            return result.ToJson();
+            var result = DB.Find<Character>().Many(p => p.name.ToLower() == name.ToLower());
+            return result.ToJson().Replace("ObjectId(", "").Replace("ISODate(", "").Replace(")", "");
         }
 
 
@@ -61,18 +62,112 @@ namespace ComicBookAPI.Controllers
             }
             if (!found)
             {
-                var pj = new Character
+                int? intelligence=null;
+                int? strength = null;
+                int? speed = null;
+                int? durability = null;
+                int? power = null;
+                int? combat = null;
+                int? total = null; 
+                int? superpower_code = null;
+                int? year = null;
+                try
                 {
-                    Name = character.SelectToken("name").ToString(),
-                    Universe = character.SelectToken("universe").ToString(),
-                    Alignment = character.SelectToken("alignment").ToString(),
-                    Race = character.SelectToken("race").ToString(),
-                    Gender = character.SelectToken("gender").ToString(),
-                    Stats = new int[] { character.SelectToken("stats.intelligence").ToObject<int>(), character.SelectToken("stats.strength").ToObject<int>(), character.SelectToken("stats.speed").ToObject<int>(), character.SelectToken("stats.durability").ToObject<int>(), character.SelectToken("stats.power").ToObject<int>(), character.SelectToken("stats.combat").ToObject<int>(), character.SelectToken("stats.total").ToObject<int>() },
-                    Superpowers = new int[] { character.SelectToken("superpowers.strength").ToObject<int>(), character.SelectToken("superpowers.healing").ToObject<int>(), character.SelectToken("superpowers.flight").ToObject<int>(), character.SelectToken("superpowers.superspeed").ToObject<int>(), character.SelectToken("superpowers.telepathy").ToObject<int>(), character.SelectToken("superpowers.others").ToObject<int>() },
-                    Superpower_Code = character.SelectToken("superpower_code").ToObject<int>()
-            };
+                    intelligence = character.SelectToken("stats.intelligence").ToObject<int>();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    strength = character.SelectToken("stats.strength").ToObject<int>();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    speed = character.SelectToken("stats.speed").ToObject<int>();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    durability = character.SelectToken("stats.durability").ToObject<int>();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    power = character.SelectToken("stats.power").ToObject<int>();
+                }
+                catch
+                {
+                    
+                }
+                try
+                {
+                    combat = character.SelectToken("stats.combat").ToObject<int>();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    total = character.SelectToken("stats.total").ToObject<int>();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    superpower_code = character.SelectToken("superpower_code").ToObject<int>();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    year = character.SelectToken("year").ToObject<int>();
+                }
+                catch
+                {
+
+                }
+                var pj = new Character
+                    {
+                        name = character.SelectToken("name").ToString(),
+                        universe = character.SelectToken("universe").ToString(),
+                        alignment = character.SelectToken("alignment").ToString(),
+                        year=year,
+                        status= character.SelectToken("status").ToString(),
+                        race = character.SelectToken("race").ToString(),
+                        gender = character.SelectToken("gender").ToString(),
+                        stats = new Stats
+                        {
+                            intelligence = intelligence,
+                            strength = strength,
+                            speed = speed,
+                            durability = durability,
+                            power = power,
+                            combat = combat,
+                            total = total,
+                        },
+                        superpower_code = superpower_code
+                };
+                 
                 
+               
+
                 pj.Save();
                 return character.SelectToken("name").ToString()+" creado!";
             }
@@ -94,7 +189,8 @@ namespace ComicBookAPI.Controllers
             String Alignment = "";
             String Race = "";
             String Gender = "";
-            int[] Stats = { 0 };
+            String Stats = "";
+            String Status = "";
             int intelligence = -1;
             int strength = -1;
             int speed = -1;
@@ -102,14 +198,8 @@ namespace ComicBookAPI.Controllers
             int power = -1;
             int combat = -1;
             int total = -1;
-            int[] Superpowers = { 0 };
-            int Superpower_Code = -1;
-            int superstrength = -1;
-            int healing = -1;
-            int flight = -1;
-            int superspeed = -1;
-            int telepathy = -1;
-            int others = -1;
+            int year = -1;
+            
             try
             {
                 Name= character.SelectToken("name").ToString();
@@ -117,9 +207,11 @@ namespace ComicBookAPI.Controllers
             catch { }
             try
             {
-                Universe=character.SelectToken("universe").ToString();
+                Universe = character.SelectToken("universe").ToString();
             }
-            catch { }
+            catch {
+                
+            }
             try
             {
                 Alignment = character.SelectToken("alignment").ToString();
@@ -135,14 +227,14 @@ namespace ComicBookAPI.Controllers
                 Gender = character.SelectToken("gender").ToString();
             }
             catch { }
-            /*try
-            {
-                Stats = new int[] { character.SelectToken("stats.intelligence").ToObject<int>(), character.SelectToken("stats.strength").ToObject<int>(), character.SelectToken("stats.speed").ToObject<int>(), character.SelectToken("stats.durability").ToObject<int>(), character.SelectToken("stats.power").ToObject<int>(), character.SelectToken("stats.combat").ToObject<int>() };
+
+            try{
+                Stats = character.SelectToken("stats").ToString();
 
             }
             catch { }
             
-            try
+            /*try
             {
                 Superpowers = new int[] { character.SelectToken("superpowers.strength").ToObject<int>(), character.SelectToken("superpowers.healing").ToObject<int>(), character.SelectToken("superpowers.flight").ToObject<int>(), character.SelectToken("superpowers.superspeed").ToObject<int>(), character.SelectToken("superpowers.telepathy").ToObject<int>(), character.SelectToken("superpowers.others").ToObject<int>() };
 
@@ -193,60 +285,20 @@ namespace ComicBookAPI.Controllers
 
             }
             catch { }
-
-
-
             try
             {
-                superstrength = character.SelectToken("superpowers.strength").ToObject<int>();
-
-            }
-            catch { }
-            try
-            {
-                healing = character.SelectToken("superpowers.healing").ToObject<int>();
-
-            }
-            catch { }
-            try
-            {
-                flight = character.SelectToken("superpowers.flight").ToObject<int>();
-
-            }
-            catch { }
-            try
-            {
-                superspeed = character.SelectToken("superpowers.superspeed").ToObject<int>();
-
-            }
-            catch { }
-            try
-            {
-                telepathy = character.SelectToken("superpowers.telepathy").ToObject<int>();
-
-            }
-            catch { }
-            try
-            {
-                others = character.SelectToken("superpowers.others").ToObject<int>();
-
-            }
-            catch { }
-            try
-            {
-                Superpower_Code = character.SelectToken("superpower_code").ToObject<int>();
+                year = character.SelectToken("year").ToObject<int>();
 
             }
             catch { }
 
-            var result = DB.Find<Character>().Many(p => ((p.Name.ToLower()==Name.ToLower() || Name=="")&&(p.Universe.ToLower() == Universe.ToLower() || Universe=="") && (p.Alignment.ToLower() == Alignment.ToLower() || Alignment=="") && (p.Race.ToLower() == Race.ToLower() || Race=="") && (p.Gender.ToLower() == Gender.ToLower() || Gender=="")
-                   && (p.Stats[0] == intelligence || intelligence == -1) && (p.Stats[1] == strength || strength == -1) && (p.Stats[2] == speed || speed == -1) && (p.Stats[3] == durability || durability == -1) && (p.Stats[4] == power || power == -1) && (p.Stats[5] == combat || combat == -1) && (p.Stats[6] == total || total == -1)
-                   && (p.Superpowers[0] == superstrength || superstrength == -1) && (p.Superpowers[1] == healing || healing == -1) && (p.Superpowers[2] == flight || flight == -1) && (p.Superpowers[3] == superspeed || superspeed == -1) && (p.Superpowers[4] == telepathy || telepathy == -1) && (p.Superpowers[5] == others || others == -1) ));
+
+            var result = DB.Find<Character>().Many(p => ((p.name.ToLower()==Name.ToLower() || Name=="")&&(p.universe.ToLower() == Universe.ToLower() || Universe=="") && (p.alignment.ToLower() == Alignment.ToLower() || Alignment=="") && (p.race.ToLower() == Race.ToLower() || Race=="") && (p.gender.ToLower() == Gender.ToLower() || Gender=="")
+                   && (p.stats.intelligence == intelligence || intelligence == -1) && (p.stats.strength == strength || strength == -1) && (p.stats.speed == speed || speed == -1) && (p.stats.durability == durability || durability == -1) && (p.stats.power == power || power == -1) && (p.stats.combat == combat || combat == -1) && (p.stats.total == total || total == -1)
+                   && (p.status.ToLower() == Status.ToLower() || Status == "") && (p.year == year || year == -1)));
 
 
-
-            //pj.Save();
-            return result.ToJson();
+            return result.ToJson().Replace("ObjectId(", "").Replace("ISODate(", "").Replace(")", "");
         }
 
         /***************************PUT************************/
@@ -256,24 +308,19 @@ namespace ComicBookAPI.Controllers
         {
             Boolean found = false;
             String id = "";
-            String name = "";
+            
             try
             {
                 id = character.SelectToken("_id").ToString();
                 found = true;
-                /*var result = DB.Find<Character>().Many(p => ((p.Name.ToLower() == Name.ToLower()
-                String name = character.SelectToken("name").ToString();
-                if (GetByName(name) != "[]")
-                {
-                    
-                }*/
+                
             }
             catch
             {
 
 
             }
-            name= character.SelectToken("name").ToString();
+            
             var result = DB.Find<Character>().One(id);
             if (!found)
             {
@@ -282,25 +329,152 @@ namespace ComicBookAPI.Controllers
             }
             else if (found)
             {
+                String Name = "";
+                String Universe = "";
+                String Alignment = "";
+                String Race = "";
+                String Gender = "";
+                String Status = "";
+
+                int intelligence = -1;
+                int strength = -1;
+                int speed = -1;
+                int durability = -1;
+                int power = -1;
+                int combat = -1;
+                int total = -1;
+                int Superpower_Code = -1;
+                int year = -1;
+
+                try
+                {
+                    Name = character.SelectToken("name").ToString();
+                }
+                catch { }
+                try
+                {
+                    Universe = character.SelectToken("universe").ToString();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    Alignment = character.SelectToken("alignment").ToString();
+                }
+                catch { }
+                try
+                {
+                    Race = character.SelectToken("race").ToString();
+                }
+                catch { }
+                try
+                {
+                    Gender = character.SelectToken("gender").ToString();
+                }
+                catch { }
+                try
+                {
+                    Status = character.SelectToken("status").ToString();
+                }
+                catch { }
+
+
+                /*try
+                {
+                    Superpowers = new int[] { character.SelectToken("superpowers.strength").ToObject<int>(), character.SelectToken("superpowers.healing").ToObject<int>(), character.SelectToken("superpowers.flight").ToObject<int>(), character.SelectToken("superpowers.superspeed").ToObject<int>(), character.SelectToken("superpowers.telepathy").ToObject<int>(), character.SelectToken("superpowers.others").ToObject<int>() };
+
+                }
+                catch { }*/
+
+
+
+                try
+                {
+                    intelligence = character.SelectToken("stats.intelligence").ToObject<int>();
+
+                }
+                catch { }
+                try
+                {
+                    strength = character.SelectToken("stats.strength").ToObject<int>();
+
+                }
+                catch { }
+                try
+                {
+                    speed = character.SelectToken("stats.speed").ToObject<int>();
+
+                }
+                catch { }
+                try
+                {
+                    durability = character.SelectToken("stats.durability").ToObject<int>();
+
+                }
+                catch { }
+                try
+                {
+                    power = character.SelectToken("stats.power").ToObject<int>();
+
+                }
+                catch { }
+                try
+                {
+                    combat = character.SelectToken("stats.combat").ToObject<int>();
+
+                }
+                catch { }
+                try
+                {
+                    total = character.SelectToken("stats.total").ToObject<int>();
+
+                }
+                catch { }
+                try
+                {
+                    year = character.SelectToken("year").ToObject<int>();
+
+                }
+                catch { }
 
                 var pj = result;
 
 
-
-                pj.Name = character.SelectToken("name").ToString();
-                pj.Universe = character.SelectToken("universe").ToString();
-                pj.Alignment = character.SelectToken("alignment").ToString();
-                pj.Race = character.SelectToken("race").ToString();
-                pj.Gender = character.SelectToken("gender").ToString();
-                pj.Stats = new int[] { character.SelectToken("stats.intelligence").ToObject<int>(), character.SelectToken("stats.strength").ToObject<int>(), character.SelectToken("stats.speed").ToObject<int>(), character.SelectToken("stats.durability").ToObject<int>(), character.SelectToken("stats.power").ToObject<int>(), character.SelectToken("stats.combat").ToObject<int>(), character.SelectToken("stats.total").ToObject<int>() };
-                pj.Superpowers = new int[] { character.SelectToken("superpowers.strength").ToObject<int>(), character.SelectToken("superpowers.healing").ToObject<int>(), character.SelectToken("superpowers.flight").ToObject<int>(), character.SelectToken("superpowers.superspeed").ToObject<int>(), character.SelectToken("superpowers.telepathy").ToObject<int>(), character.SelectToken("superpowers.others").ToObject<int>() };
-                pj.Superpower_Code = character.SelectToken("superpower_code").ToObject<int>();
+                if(Name!="")
+                    pj.name = Name;
+                if (Universe != "")
+                    pj.universe = Universe;
+                if (Alignment != "")
+                    pj.alignment = Alignment;
+                if (Race != "")
+                    pj.race = Race;
+                if (Gender != "")
+                    pj.gender = Gender;
+                if (Status != "")
+                    pj.status = Status;
+                if (intelligence != -1 && strength != -1 && total != -1 && speed != -1 && durability != -1 && power != -1 && combat != -1 )
+                    pj.stats = new Stats
+                    {
+                        intelligence = intelligence,
+                        strength = strength,
+                        speed = speed,
+                        durability = durability,
+                        power = power,
+                        combat = combat,
+                        total = total,
+                    };
+                if (Superpower_Code != -1)
+                    pj.superpower_code = Superpower_Code;
+                if (year != -1)
+                    pj.year = year;
 
                 pj.Save();
                 
             }
 
-            return result.ToJson();
+            return "personaje con id "+id+" actualizado!";
         }
     }
 }
