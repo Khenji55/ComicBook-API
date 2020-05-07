@@ -3,12 +3,11 @@ using System;
 
 namespace ComicBookAPI.Classes
 {
-    class Power : Entity
+    class PowerValues
     {
         //public string _id { get; set; }
-        public int power_index { get; set; }
+        //public int power_index { get; set; }
         public String power_name { get; set; }
-
         /*public Boolean IsIncluded(int power_code)
         {
             double a = Math.Pow(2, power_index + 1);

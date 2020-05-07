@@ -26,7 +26,7 @@ namespace ComicBookAPI.Controllers
             Console.WriteLine("SI");
             return result.ToJson().Replace("ObjectId(", "").Replace("ISODate(", "").Replace(")", "");
         }
-        [HttpPost]
+        /*[HttpPost]
         public String Create([FromBody]JObject power)
         {
             var pow = new Power
@@ -38,7 +38,7 @@ namespace ComicBookAPI.Controllers
             pow.Save();
             return power.ToString();
         }
-        /*[HttpGet]
+        [HttpGet]
         public String test([FromBody]JObject power)
         {
             var pow = new Power

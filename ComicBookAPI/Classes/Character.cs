@@ -1,5 +1,7 @@
 ﻿using MongoDB.Entities.Core;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ComicBookAPI.Classes
 {
@@ -16,17 +18,18 @@ namespace ComicBookAPI.Classes
         public string gender { get; set; }
         //public int[] Stats { get; set; }
         public Stats stats { get; set; }
-        public int? superpower_code { get; set; }
-
-        public Boolean HasPower(int power_index)
+        //public int? superpower_code { get; set; }
+        public List<PowerValues> power_values { get; set; }
+        
+        public Boolean HasPowers(List<PowerValues> powers)
         {
-            double a = Math.Pow(2, power_index + 1);
-            double b = Math.Pow(2, power_index);
-            if ((superpower_code % a) >= b)
-                return true;
-            else
-                return false;
-
+            Console.WriteLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+            return power_values.Intersect(powers).Count() == power_values.Count();
+        }
+        public Boolean HasPower(PowerValues powers)
+        {
+            
+            return power_values.Contains(powers);
         }
     }
 }
