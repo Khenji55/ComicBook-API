@@ -2,7 +2,7 @@
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
 $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-$headers.Add("authority", "localhost:44350")
+$headers.Add("authority", "localhost:5001")
 $headers.Add("cache-control", "no-cache")
 $headers.Add("content-type", "application/json")
 $headers.Add("sec-fetch-dest", "document")
@@ -19,7 +19,7 @@ foreach($item in $characters){
     <#$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
 $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-$headers.Add("authority", "localhost:44350")
+$headers.Add("authority", "localhost:5001")
 $headers.Add("cache-control", "no-cache")
 $headers.Add("content-type", "application/json")
 $headers.Add("sec-fetch-dest", "document")
@@ -51,7 +51,7 @@ $body = "{
         `n        `"power_values`":null
 `n    }"
 
-$response = Invoke-RestMethod 'https://localhost:44350/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
+$response = Invoke-RestMethod 'https://localhost:5001/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
 $response# | ConvertTo-Json
 
 
@@ -83,7 +83,7 @@ foreach($item in $characters_info){
     <#$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
     $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
     $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-    $headers.Add("authority", "localhost:44350")
+    $headers.Add("authority", "localhost:5001")
     $headers.Add("cache-control", "no-cache")
     $headers.Add("content-type", "application/json")
     $headers.Add("sec-fetch-dest", "document")
@@ -96,7 +96,7 @@ foreach($item in $characters_info){
 
     $body = ""
 
-    $response = Invoke-RestMethod "https://localhost:44350/api/personajes/$name" -Method 'GET' -UseBasicParsing -Headers $headers
+    $response = Invoke-RestMethod "https://localhost:5001/api/personajes/$name" -Method 'GET' -UseBasicParsing -Headers $headers
     #$response | ConvertTo-Json
     
     #si no lo encuentra lo crea
@@ -125,7 +125,7 @@ foreach($item in $characters_info){
         `n        `"power_values`":null
         `n    }"
 
-        $response = Invoke-RestMethod 'https://localhost:44350/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
+        $response = Invoke-RestMethod 'https://localhost:5001/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
         $response# | ConvertTo-Json
     }
     else{#si lo encuentra lo modifica
@@ -134,7 +134,7 @@ foreach($item in $characters_info){
         <#$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
         $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
         $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-        $headers.Add("authority", "localhost:44350")
+        $headers.Add("authority", "localhost:5001")
         $headers.Add("cache-control", "no-cache")
         $headers.Add("content-type", "application/json")
         $headers.Add("sec-fetch-dest", "document")
@@ -149,10 +149,11 @@ foreach($item in $characters_info){
         `n    `"name`": `"$name`",
         `n    `"alignment`": `"$alignment`",
         `n	  `"race`": `"$race`",
-        `n	  `"gender`": `"$gender`"
+        `n	  `"gender`": `"$gender`",
+                `n        `"power_values`":null
         `n}"
 
-        $response = Invoke-RestMethod 'https://localhost:44350/api/personajes/' -UseBasicParsing -Method 'PUT' -Headers $headers -Body $body
+        $response = Invoke-RestMethod 'https://localhost:5001/api/personajes/' -UseBasicParsing -Method 'PUT' -Headers $headers -Body $body
         $response# | ConvertTo-Json
     }
     
@@ -185,7 +186,7 @@ foreach($item in $marvel_dc_characters){
    <# $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
     $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
     $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-    $headers.Add("authority", "localhost:44350")
+    $headers.Add("authority", "localhost:5001")
     $headers.Add("cache-control", "no-cache")
     $headers.Add("content-type", "application/json")
     $headers.Add("sec-fetch-dest", "document")
@@ -198,7 +199,7 @@ foreach($item in $marvel_dc_characters){
 
     $body = ""
 
-    $response = Invoke-RestMethod "https://localhost:44350/api/personajes/$name" -Method 'GET' -UseBasicParsing -Headers $headers
+    $response = Invoke-RestMethod "https://localhost:5001/api/personajes/$name" -Method 'GET' -UseBasicParsing -Headers $headers
     #$response | ConvertTo-Json
     
     #si no lo encuentra lo crea
@@ -227,7 +228,7 @@ foreach($item in $marvel_dc_characters){
         `n        `"power_values`":null
         `n    }"
 
-        $response = Invoke-RestMethod 'https://localhost:44350/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
+        $response = Invoke-RestMethod 'https://localhost:5001/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
         $response# | ConvertTo-Json
     }
     else{#si lo encuentra lo modifica
@@ -236,7 +237,7 @@ foreach($item in $marvel_dc_characters){
         <#$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
         $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
         $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-        $headers.Add("authority", "localhost:44350")
+        $headers.Add("authority", "localhost:5001")
         $headers.Add("cache-control", "no-cache")
         $headers.Add("content-type", "application/json")
         $headers.Add("sec-fetch-dest", "document")
@@ -254,10 +255,10 @@ foreach($item in $marvel_dc_characters){
         `n        `"status`": `"$status`",
         `n        `"gender`": `"$gender`",
         `n        `"year`": $year,
-
+                `n        `"power_values`":null
         `n}"
 
-        $response = Invoke-RestMethod 'https://localhost:44350/api/personajes/' -UseBasicParsing -Method 'PUT' -Headers $headers -Body $body
+        $response = Invoke-RestMethod 'https://localhost:5001/api/personajes/' -UseBasicParsing -Method 'PUT' -Headers $headers -Body $body
         $response# | ConvertTo-Json
     }
     
@@ -288,7 +289,7 @@ foreach($item in $characters_stats){
     <#$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
     $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
     $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-    $headers.Add("authority", "localhost:44350")
+    $headers.Add("authority", "localhost:5001")
     $headers.Add("cache-control", "no-cache")
     $headers.Add("content-type", "application/json")
     $headers.Add("sec-fetch-dest", "document")
@@ -301,7 +302,7 @@ foreach($item in $characters_stats){
 
     $body = ""
 
-    $response = Invoke-RestMethod "https://localhost:44350/api/personajes/$name" -Method 'GET' -UseBasicParsing -Headers $headers
+    $response = Invoke-RestMethod "https://localhost:5001/api/personajes/$name" -Method 'GET' -UseBasicParsing -Headers $headers
     #$response | ConvertTo-Json
     
     #si no lo encuentra lo crea
@@ -329,7 +330,7 @@ foreach($item in $characters_stats){
         `n        `"power_values`":null
         `n    }"
 
-        $response = Invoke-RestMethod 'https://localhost:44350/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
+        $response = Invoke-RestMethod 'https://localhost:5001/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
         $response# | ConvertTo-Json
     }
     else{#si lo encuentra lo modifica
@@ -338,7 +339,7 @@ foreach($item in $characters_stats){
         <#$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
         $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
         $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-        $headers.Add("authority", "localhost:44350")
+        $headers.Add("authority", "localhost:5001")
         $headers.Add("cache-control", "no-cache")
         $headers.Add("content-type", "application/json")
         $headers.Add("sec-fetch-dest", "document")
@@ -359,10 +360,11 @@ foreach($item in $characters_stats){
         `n            `"power`": $power,
         `n            `"combat`": $combat,
         `n            `"total`": $total
-        `n        }
+        `n        },
+                `n        `"power_values`":null
         `n}"
 
-        $response = Invoke-RestMethod 'https://localhost:44350/api/personajes/' -UseBasicParsing -Method 'PUT' -Headers $headers -Body $body
+        $response = Invoke-RestMethod 'https://localhost:5001/api/personajes/' -UseBasicParsing -Method 'PUT' -Headers $headers -Body $body
         $response #| ConvertTo-Json
     }
     
@@ -376,7 +378,7 @@ foreach($item in $characters_stats){
 ###############################################################################
 clear-host
 $power_matrix=get-content -path "..\superheroes_power_matrix.csv" |ConvertFrom-Csv -Delimiter ","
-$powers=$dt[0].psobject.properties.name
+$powers=$power_matrix[0].psobject.properties.name
 foreach($item in $power_matrix){
     $c=0
     $sp_body=""
@@ -396,7 +398,7 @@ foreach($item in $power_matrix){
    <# $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
     $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
     $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-    $headers.Add("authority", "localhost:44350")
+    $headers.Add("authority", "localhost:5001")
     $headers.Add("cache-control", "no-cache")
     $headers.Add("content-type", "application/json")
     $headers.Add("sec-fetch-dest", "document")
@@ -409,7 +411,7 @@ foreach($item in $power_matrix){
 
     $body = ""
 
-    $response = Invoke-RestMethod "https://localhost:44350/api/personajes/$name" -Method 'GET' -UseBasicParsing -Headers $headers
+    $response = Invoke-RestMethod "https://localhost:5001/api/personajes/$name" -Method 'GET' -UseBasicParsing -Headers $headers
 
     if($response.Length -eq 0){
 
@@ -421,7 +423,7 @@ foreach($item in $power_matrix){
         `n        `"power_values`":[$sp_body]
         `n    }"
 
-        $response = Invoke-RestMethod 'https://localhost:44350/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
+        $response = Invoke-RestMethod 'https://localhost:5001/api/personajes/' -Method 'POST' -UseBasicParsing -Headers $headers -Body $body
         $response# | ConvertTo-Json
     }
     else{#si lo encuentra lo modifica
@@ -430,7 +432,7 @@ foreach($item in $power_matrix){
         <#$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
         $headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
         $headers.Add("accept-language", "es-ES,es;q=0.9,en;q=0.8")
-        $headers.Add("authority", "localhost:44350")
+        $headers.Add("authority", "localhost:5001")
         $headers.Add("cache-control", "no-cache")
         $headers.Add("content-type", "application/json")
         $headers.Add("sec-fetch-dest", "document")
@@ -446,7 +448,7 @@ foreach($item in $power_matrix){
         `n        `"power_values`":[$sp_body]
         `n    }"
 
-        $response = Invoke-RestMethod 'https://localhost:44350/api/personajes/' -UseBasicParsing -Method 'PUT' -Headers $headers -Body $body
+        $response = Invoke-RestMethod 'https://localhost:5001/api/personajes/' -UseBasicParsing -Method 'PUT' -Headers $headers -Body $body
         $response# | ConvertTo-Json
     }
 }
